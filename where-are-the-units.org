@@ -1,0 +1,36 @@
+-*- mode: org -*-
+#+title: Mathematical Units? No!
+#+language: en
+#+options: H:4 num:nil toc:nil \n:nil @:t ::t |:t ^:t *:t TeX:t LaTeX:t d:(not "HINT")
+#+startup: entitiespretty showeverything
+#+setupfile: theme-bigblow.setup
+
+   In chemistry and physics, we use units heavily to denote what that value represents. But numbers by themselves like we used in Calculus
+   have no units ... or do they? What does division mean?
+
+   If I said, "What is one-half?", you could say it's 0.5. But what does that mean? We can express this value in integer terms with no
+   decimal obscurity: one-half = \(\frac{1}{2}\). What is the notion of this? What are the numbers (what I'm calling as the units) representing?
+
+   Let us first understand these truths.
+
+   \(\forall x \in \mathbb{R} \frac{x}{1} = x\)
+
+   \(\forall x, y \in \mathbb{R} \frac{\frac{x}{y}}{1} = \frac{x}{y}\)
+
+   Using these definitions, let us consider what \frac{18}{3} represents as units (numbers).
+
+   If I divide 18 by 3 I will get 6 over 1 (by the first definition). Where did the units 18 and 3 go?
+
+   I would state the representation like this:
+
+   \(\frac{18}{3}\) asks how many 3's go into 18. The answer is \(\frac{6}{1}\). This says that
+   for every 18, there are 6 3's per 1 3. Its a ratio, where the units cancel, but the implication
+   that they are there holds.
+
+   \(\frac{18}{3} = \frac{6 \text{  3's}}{1 \text{  3}} = \frac{6}{1} = 6\)
+
+   Now you can see why mathmaticians hardly ever do this because it looks weird. Numbers are numbers, not units.
+   But What divisions and multiplications, additions and subtractions imply (yea, all of mathematics) meaning behind
+   each value and what it represents in the given context.
+
+   Do not forget, division and multiplication mean more than just find a value. The meaning is deep and worth pondering on.
