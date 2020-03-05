@@ -1,0 +1,10 @@
+﻿Below is shown that the usqrt(340282366920938463463374607431768211450) result that the Rust function output and verifies that the product is less than or equal to what was square-rooted. The multiplication of the output is less than the large number given to the function, which is OK. I didn’t expect it to be a perfect square. This snippet of command-line calculations shows that the value returned is less than the huge number (call the huge number x) and if we increment each value in the multiplication by one, their product is no longer less than x. Then the actual product is computed. 
+
+
+3> 18446744073709551615 * 18446744073709551615 =< 340282366920938463463374607431768211450.
+true
+4> 18446744073709551616 * 18446744073709551616 =< 340282366920938463463374607431768211450.
+false
+5> 18446744073709551615 * 18446744073709551615.                                           
+340282366920938463426481119284349108225
+6>

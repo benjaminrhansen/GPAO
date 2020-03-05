@@ -1,0 +1,87 @@
+#[macro_use] extern crate tramp;
+
+use tramp::{tramp, Rec};
+
+fn main() {
+    println!("What's up!");
+    println!("5 mod 2 = {}", 5 % 2);
+
+    println!("{}",factorial(5));
+    println!("101 is prime? {}",is_prime(101));
+    println!("unisigned sqrt of 340282366920938463463374607431768211450: {}", usqrt(340282366920938463463374607431768211450u128));
+}
+
+fn abs_diff_u128(x :u128, y :u128) -> u128 {
+    // If y is bigger, subtract x from y
+    if x < y {
+        y - x
+      // else x is bigger (or equal to) so y subtracted from x is fine
+    } else {
+        x - y
+    }
+}
+
+fn usqrt(x :u128) -> u128 {
+    // Define our usqrt() closure
+    fn usqrt(n: u128, x_k :u128) -> Rec<u128> {
+        // Compute next x_k
+        // x_k+1 = floor(1/2(x_k + floor(n / x_k)))
+        // which we can just use integer divisions to simulate the floor
+        // remember though to divide the parenthesis by 2 for that floor division
+        // instead of flooring 1/2 first which obviously is 0. 0 * anything = 0 which is not
+        // useful.
+        let x_k_plus_1 :u128 = (x_k + n / x_k) / 2;
+        // Check stopping criterion
+        // if |x_k_plus_1 - x_k| < c with c = 1, then we can stop now
+        // check most likely case
+        if abs_diff_u128(x_k_plus_1, x_k) >= 1 {
+            // recurse through x_k_plus_1 as new x_k
+            rec_call!(usqrt(n, x_k_plus_1))
+           // else we can stop now
+        } else {
+            rec_ret!(x_k_plus_1)
+        }
+    }
+
+    // Call function closure
+    tramp(usqrt(x, 1))
+}
+
+fn is_prime(x :u128) -> bool {
+    // Define our is_prime function closure
+    fn is_prime(x :u128, p_factor :u128) -> Rec<bool> {
+        // While p_factor is greater than 1, keep recursing
+        if p_factor > 1 {
+            // Check if p_factor divides x
+            if x % p_factor != 0 {
+                // if not, keep recursing - check each p_factor below x and > 1
+                rec_call!(is_prime(x, p_factor - 1))
+              // else we found a p_factor that is actually a factor. Return false
+            } else {
+                rec_ret!(false)
+            }   
+            // else none other p_factor exists other than 1. Return true; x is prime.
+        } else {
+            rec_ret!(true)
+        }
+    }
+
+    // Now call the recursive is_prime() function to compute the functionality
+    // Trampoline to that recursive closure!
+    // Every factor of a number can be found through 1 to the square root of the number
+    tramp(is_prime(x,usqrt(x)))
+}
+
+// Taken directly from the open source library: https://docs.rs/tramp/0.3.0/tramp/index.html#macros
+fn factorial(n: u128) -> u128 {
+    fn fac_with_acc(n: u128, acc: u128) -> Rec<u128> {
+        if n > 1 {
+            rec_call!(fac_with_acc(n - 1, acc * n))
+        } else {
+            rec_ret!(acc)
+        }
+    }
+
+    tramp(fac_with_acc(n, 1))
+}
+
